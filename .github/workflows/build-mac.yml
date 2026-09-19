@@ -1,0 +1,25 @@
+name: Build Mac
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pyinstaller pygame pillow
+      - run: pyinstaller --onedir --windowed --name PR1ME5 --target-arch universal2 --add-data "assets:assets" AllinOne.py
+      - run: chmod -R 755 dist/PR1ME5.app
+      - run: |
+          cd dist
+          zip -r PR1ME5-Mac.zip PR1ME5.app
+          mkdir -p ../mac_content
+          cp -R PR1ME5.app ../mac_content/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PR1ME5-Mac-Depot
+          path: |
+            dist/PR1ME5-Mac.zip
+            mac_content/
