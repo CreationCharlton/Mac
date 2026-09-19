@@ -10,7 +10,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pyinstaller pygame pillow
-      - run: pyinstaller --onedir --windowed --name PR1ME5 --icon assets/icons/PR1ME5.icns --target-arch universal2 --add-data "assets:assets" AllinOne.py
+      - run: pyinstaller --onedir --windowed --name PR1ME5 --icon assets/icons/PR1ME5.icns --add-data "assets:assets" AllinOne.py
       - run: chmod -R 755 dist/PR1ME5.app
       - run: |
           cd dist
